@@ -1,6 +1,7 @@
 import { AfterViewInit, Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 // import { Chart } from 'chart.js';
 import Chart from 'chart.js/auto';
+import DatalabelsPlugin from 'chartjs-plugin-datalabels';
 
 
 @Component({
@@ -11,13 +12,14 @@ import Chart from 'chart.js/auto';
 
 
 export class ChartThreeComponent implements AfterViewInit {
+  public doughnutChartPlugins = [DatalabelsPlugin];
 
   @ViewChild('myChart') chartCanvas!: ElementRef<HTMLCanvasElement>;
 
   ngAfterViewInit(): void {
     const ctx: CanvasRenderingContext2D = this.chartCanvas.nativeElement.getContext('2d')!;
-    const data = [20, 34, 44];
-    const needleVal  = 27;
+    const data = [30, 34, 44];
+    const needleVal  = 267;
 
     new Chart(ctx, {
       type: 'doughnut',
@@ -66,14 +68,16 @@ export class ChartThreeComponent implements AfterViewInit {
       // needleValue: 27,
       options: {
         plugins: {
-          // tooltip: {
-          //   callbacks: {
-          //     label: (context) => {
-          //       const value = data[context.dataIndex];
-          //       return `Value: ${value}`;
-          //     }
-          //   }
-          // }
+          tooltip: {
+            callbacks: {
+              label: (context) => {
+                const label = context.dataset.data[context.dataIndex] || '';
+                return `Value: ${label}`;
+              },
+
+            },
+
+          }
 
 
         },
