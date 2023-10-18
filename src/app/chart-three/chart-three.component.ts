@@ -19,7 +19,7 @@ export class ChartThreeComponent implements AfterViewInit {
   ngAfterViewInit(): void {
     const ctx: CanvasRenderingContext2D = this.chartCanvas.nativeElement.getContext('2d')!;
     const data = [30, 34, 44];
-    const needleVal  = 267;
+    const needleVal  = 27;
 
     new Chart(ctx, {
       type: 'doughnut',
