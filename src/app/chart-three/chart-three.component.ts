@@ -16,6 +16,8 @@ export class ChartThreeComponent implements AfterViewInit {
 
   ngAfterViewInit(): void {
     const ctx: CanvasRenderingContext2D = this.chartCanvas.nativeElement.getContext('2d')!;
+    const data = [20, 34, 44];
+    const needleVal  = 27;
 
     new Chart(ctx, {
       type: 'doughnut',
@@ -23,7 +25,7 @@ export class ChartThreeComponent implements AfterViewInit {
         id: '',
         afterDraw: (chart) => {
           // var needleValue = chart.config.data.datasets[0].needleValue;
-          var needleValue = 27;
+          var needleValue = needleVal;
           var dataTotal = chart.config.data.datasets[0].data.reduce((a:any, b:any) => a + b, 0);
           var angle = Math.PI + (1 / dataTotal * needleValue * Math.PI);
           var ctx = chart.ctx;
@@ -48,19 +50,34 @@ export class ChartThreeComponent implements AfterViewInit {
         }
       }],
       data: {
-        labels: [],
+        // labels: [],
+        labels: data.map(value => `${value}`),
         datasets: [{
-          data: [35, 35, 35],
+          data: data,
 
           backgroundColor: [
             'rgba(255, 99, 132, 1)',
             'rgba(255, 206, 86, 1)',
             'rgba(63, 191, 63, 1)'
-          ]
+          ],
+
         }]
       },
       // needleValue: 27,
       options: {
+        plugins: {
+          // tooltip: {
+          //   callbacks: {
+          //     label: (context) => {
+          //       const value = data[context.dataIndex];
+          //       return `Value: ${value}`;
+          //     }
+          //   }
+          // }
+
+
+        },
+
         responsive: false,
         aspectRatio: 2,
         layout: {
@@ -71,9 +88,7 @@ export class ChartThreeComponent implements AfterViewInit {
         rotation: -90,
         cutout: '50%',
         circumference: 180,
-        // legend: {
-        //   display: false
-        // },
+
         animation: {
           animateRotate: false,
           animateScale: true
