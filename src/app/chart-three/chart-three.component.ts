@@ -53,7 +53,8 @@ export class ChartThreeComponent implements AfterViewInit {
       }],
       data: {
         // labels: [],
-        labels: data.map(value => `${value}`),
+        labels :['Unacceptable', 'Acceptable', 'Excellent'],
+        // labels: data.map(value => `${value}`),
         datasets: [{
           data: data,
 
